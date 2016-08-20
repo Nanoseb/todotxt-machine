@@ -25,9 +25,9 @@ def test_terminal_operations_move_cursor(term, capsys):
   assert out == "\x1B[0;0HX\x1B[1;1HX\x1B[2;2HX\x1B[3;3HX\x1B[4;4HX"
 
 def test_terminal_operations_length_ignoring_escapes(term):
-    assert len("(A) 2013-10-25 This is a +Very @cool test") == term.length_ignoring_escapes("\x1b[m(A) \x1b[38;5;2m2013-10-25\x1b[38;5;13m This is a \x1b[38;5;4m+Very\x1b[38;5;13m \x1b[38;5;1m@cool\x1b[38;5;13m test")
+    assert len("(A) 25/10/2013 This is a +Very @cool test") == term.length_ignoring_escapes("\x1b[m(A) \x1b[38;5;2m2013-10-25\x1b[38;5;13m This is a \x1b[38;5;4m+Very\x1b[38;5;13m \x1b[38;5;1m@cool\x1b[38;5;13m test")
 
 def test_terminal_operations_ljust_with_escapes(term):
-    test_string = "(A) 2013-10-25 This is a +Very @cool test"
-    test_string_with_escapes = "\x1b[m(A) \x1b[38;5;2m2013-10-25\x1b[38;5;13m This is a \x1b[38;5;4m+Very\x1b[38;5;13m \x1b[38;5;1m@cool\x1b[38;5;13m test"
+    test_string = "(A) 25/10/2013 This is a +Very @cool test"
+    test_string_with_escapes = "\x1b[m(A) \x1b[38;5;2m25/10/2013\x1b[38;5;13m This is a \x1b[38;5;4m+Very\x1b[38;5;13m \x1b[38;5;1m@cool\x1b[38;5;13m test"
     assert len(test_string.ljust(80)) - len(test_string) == len(term.ljust_with_escapes(test_string_with_escapes, 80)) - len(test_string_with_escapes)

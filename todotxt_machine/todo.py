@@ -99,9 +99,9 @@ class Todo:
             return True
 
     def complete(self):
-        today = date.today()
-        self.raw = "x {0} ".format(today) + self.raw
-        self.completed_date = "{0}".format(today)
+        today = date.today().strftime('%d/%m/%Y ')
+        self.raw = "x " + today + self.raw
+        self.completed_date = today
         self.update(self.raw)
 
     def incomplete(self):
@@ -112,7 +112,7 @@ class Todo:
     def add_creation_date(self):
         if self.creation_date == "":
             p = "({0}) ".format(self.priority) if self.priority != "" else ""
-            self.update("{0}{1} {2}".format(p, date.today(), self.raw.replace(p, "")))
+            self.update("{0}{1} {2}".format(p, date.today().strftime('%d/%m/%Y'), self.raw.replace(p, "")))
 
 
 class Todos:
@@ -120,12 +120,12 @@ class Todos:
     _context_regex       = re.compile(r'(?:^|\s+)(@\S+)')
     _project_regex       = re.compile(r'(?:^|\s+)(\+\S+)')
     _creation_date_regex = re.compile(r'^'
-                                      r'(?:x \d\d\d\d-\d\d-\d\d )?'
+                                      r'(?:x \d\d\/\d\d\/\d\d\d\d )?'
                                       r'(?:\(\w\) )?'
-                                      r'(\d\d\d\d-\d\d-\d\d)\s*')
-    _due_date_regex      = re.compile(r'\s*due:(\d\d\d\d-\d\d-\d\d)\s*')
+                                      r'(\d\d\/\d\d\/\d\d\d\d)\s*')
+    _due_date_regex      = re.compile(r'\s*due:(\d\d\/\d\d\/\d\d\d\d)\s*')
     _priority_regex      = re.compile(r'\(([A-Z])\) ')
-    _completed_regex     = re.compile(r'^x (\d\d\d\d-\d\d-\d\d) ')
+    _completed_regex     = re.compile(r'^x (\d\d\/\d\d\/\d\d\d\d) ')
 
     def __init__(self, todo_items, file_path, archive_path):
         self.file_path = file_path
